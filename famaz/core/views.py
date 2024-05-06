@@ -2,7 +2,10 @@ from django.shortcuts import render # type: ignore
 from .models import Item
 
 def index(request):
-    return render(request, 'core/home.html') 
+    context = {
+        'items': Item.objects.all()
+    }
+    return render(request, 'core/home.html', context) 
 
 def products(request):
     context = {
