@@ -15,6 +15,6 @@ def checkout(request):
 
 def item_list(request):
     context = {
-        'items': Item.object.all()
+        'items': Item.objects.all()
     }
     return render(request, 'core/item_list.html', context)
