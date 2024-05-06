@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render # type: ignore
 from .models import Item
 
 def index(request):
@@ -12,3 +12,9 @@ def products(request):
 
 def checkout(request):
     return render(request, 'core/checkout.html')
+
+def item_list(request):
+    context = {
+        'items': Item.object.all()
+    }
+    return render(request, 'core/item_list.html', context)
