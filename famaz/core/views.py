@@ -13,13 +13,15 @@ def products(request):
     return render(request, "core/products.html", context)
 
 
+def login(request):
+    return render(request, "account/login.html")
 def checkout(request):
     return render(request, "core/checkout.html")
 
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 3
+    paginate_by = 10
     template_name = "core/home.html"
 
 

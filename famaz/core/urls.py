@@ -4,7 +4,9 @@ from .views import (
     HomeView,
     remove_from_cart, 
     add_to_cart,
-    checkout)
+    checkout,
+    login,
+    )
 
 app_name = 'core'
 
@@ -13,5 +15,6 @@ urlpatterns = [
     path('product/<slug>/', ItemDetailView.as_view(), name='product'),
     path('add-to-cart/<slug>/', add_to_cart, name='add-to-cart'),
     path('remove-from-cart/<slug>/', remove_from_cart, name='remove-from-cart'),
-    path("checkout/", checkout, name="checkout")
+    path("checkout/", checkout, name="checkout"),
+    path("login/", login, name="login")
 ]
