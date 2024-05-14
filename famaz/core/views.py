@@ -1,3 +1,4 @@
+from allauth.account.views import SignupView, LoginView
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -10,24 +11,22 @@ def products(request):
     context = {
         'items': Item.objects.all()
     }
-    return render(request, "core/products.html", context)
+    return render(request, "products.html", context)
 
 
-def login(request):
-    return render(request, "account/login.html")
 def checkout(request):
-    return render(request, "core/checkout.html")
+    return render(request, "checkout.html")
 
 
 class HomeView(ListView):
     model = Item
     paginate_by = 10
-    template_name = "core/home.html"
+    template_name = "home.html"
 
 
 class ItemDetailView(DetailView):
     model = Item
-    template_name = "core/product.html"
+    template_name = "product.html"
 
 
 def add_to_cart(request, slug):
@@ -83,3 +82,9 @@ def remove_from_cart(request, slug):
     else:
         messages.info(request, "You do not have an active order")
         return redirect("core:product", slug=slug)
+
+class MySignupView(SignupView):
+    template_name = 'account/signup.html'
+
+class MyLoginView(LoginView):
+    template_name = 'account/login.html'
