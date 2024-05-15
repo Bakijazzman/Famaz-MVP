@@ -1,4 +1,4 @@
-from .views import index, about, login_user, logout_user
+from .views import index, about, login_user, logout_user, register_user
 from django.urls import path
 
 
@@ -7,4 +7,5 @@ urlpatterns = [
     path('about/', about, name="about"),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
+    path("register/", register_user, name="register" ),
 ]
