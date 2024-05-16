@@ -14,9 +14,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <form method="POST" action="{% url 'login' %}">
+            <form method="POST" action="{% url 'register' %}">
                 {% csrf_token %}
-                <div class="mb-3">
+
+                {{ form.as_p}}
+                <br/>
+                <button type="submit" class="btn btn-secondary">Register</button>
+
+
+
+                {% comment %} <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Username</label>
                   <input type="text" class="form-control" name="username" placeholder="Enter your username">
                 </div>
@@ -24,7 +31,7 @@
                   <label for="exampleInputPassword1" class="form-label">Password</label>
                   <input type="password" class="form-control" name="password" placeholder="Enter your password">
                 </div>
-                <button type="submit" class="btn btn-secondary">Login</button>
+                <button type="submit" class="btn btn-secondary">Login</button> {% endcomment %}
             </form>
         </div>
     </div>
