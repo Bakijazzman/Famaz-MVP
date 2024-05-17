@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Product
+from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
-from django import forms
 
 
 def index(request):
@@ -14,6 +11,18 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', {})
+
+def category(request, foo):
+    # replacing hyphen from the request with spaces
+    foo = foo.replace('-', ' ')
+    try:
+        # look up the category
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(Category=category)
+        return render(request, "category.html", {'products':products, 'category':category})
+    except:
+        messages.success(request,("That category doesnt exist"))
+        return redirect("index")
 
 # The login function
 def login_user(request):
