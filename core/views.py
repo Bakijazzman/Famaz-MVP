@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Product, Category
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateUserForm
 
 
 def index(request):
@@ -46,6 +47,25 @@ def logout_user(request):
     messages.success(request, ("You have successfully logged out "))
     return redirect("index")
 
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = UpdateUserForm(request.POST or None, instance=current_user)
+        
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, ("User has been Updated"))
+            return redirect("index")
+        return render(request, 'update_user.html', {"form":form})
+    else:
+        messages.success(request, ("You have to login first"))
+        return redirect("index")
+            
+            
+    
+
+
 def register_user(request):
     form = SignUpForm()
     if request.method == 'POST':
@@ -68,3 +88,7 @@ def register_user(request):
 def product(request, pk):
     product = Product.objects.get(id=pk)
     return render(request, "product.html", {'product':product})
+
+def category_summary(request):
+    categories = Category.objects.all()
+    return render(request, 'category_summary.html', {"categories":categories})

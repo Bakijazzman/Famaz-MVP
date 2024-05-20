@@ -9,6 +9,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'update' %}">Update User</a></li>
                         {% else %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Signup</a></li>
@@ -16,7 +17,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="{% url 'index' %}">All Products</a></li>
+                                <li><a class="dropdown-item" href="{% url 'category_summary' %}">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="{% url 'category' 'Cash-Crops' %}">Cash Crops</a></li>
                                 <li><a class="dropdown-item" href="{% url 'category' 'Food-Crops' %}">Food Crop</a></li>

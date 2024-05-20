@@ -67,6 +67,9 @@
           </div>
     </div>
             {% endfor %}
+            <br/><br/>
+            <h3>Total: ${{ totals }}</h3>
+            <br/><br/><br/><br/>
         {% else %}
             there is nothing in your cart
             <br/><br/><br/><br/><br/><br/>
@@ -102,8 +105,6 @@
 //Remove from cart
 $(document).on('click', '.delete-product', function(e){
   e.preventDefault();
-  // grab the product id
-  //var productid = $(this).data('index');
   $.ajax({
     type: 'POST',
     url: '{% url "cart_delete" %}',
