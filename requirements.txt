@@ -12,9 +12,11 @@ Django==4.2.11
 django-allauth==0.62.1
 filelock==3.14.0
 greenlet==3.0.2
+gunicorn==22.0.0
 idna @ file:///croot/idna_1666125576474/work
 mysql-connector-python==8.2.0
 mysqlclient==2.1.1
+packaging==24.0
 pillow==10.3.0
 platformdirs==4.2.1
 protobuf==4.21.12
