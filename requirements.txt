@@ -1,20 +1,16 @@
 asgiref==3.8.1
-certifi @ file:///croot/certifi_1700501669400/work/certifi
-cffi @ file:///croot/cffi_1700254295673/work
-charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
-conda==4.12.0
-conda-package-handling @ file:///croot/conda-package-handling_1690999929514/work
-conda_package_streaming @ file:///croot/conda-package-streaming_1690987966409/work
-cryptography @ file:///croot/cryptography_1702070282333/work
+
+cffi 
+charset-normalizer 
 distlib==0.3.8
 Django==4.2.11
 gunicorn==22.0.0
 pillow==10.3.0
 psycopg2-binary==2.9.9
-pycosat @ file:///croot/pycosat_1696536503704/work
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-requests @ file:///croot/requests_1690400202158/work
-ruamel-yaml-conda @ file:///tmp/build/80754af9/ruamel_yaml_1616016711199/work
+pycosat 
+pycparser 
+requests 
+ruamel-yaml-conda 
 SQLAlchemy==2.0.23
 sqlparse==0.5.0
 typing_extensions==4.9.0
