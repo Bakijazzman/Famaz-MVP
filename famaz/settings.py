@@ -16,8 +16,8 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ["https://famaz-mvp.onrender.com", ""]
+# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 # allowed_host = os.environ.get("ALLOWED_HOSTS", "")
 # ALLOWED_HOST = allowed_host.split(" ")
 
