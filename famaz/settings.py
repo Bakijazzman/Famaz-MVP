@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,13 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#=c=06p6ci-!69n*5g2ha77&#sx@2^z*$j2m1!h=ggqha5(#7_'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+# 'django-insecure-#=c=06p6ci-!69n*5g2ha77&#sx@2^z*$j2m1!h=ggqha5(#7_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = []
 
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+# allowed_host = os.environ.get("ALLOWED_HOSTS", "")
+# ALLOWED_HOST = allowed_host.split(" ")
 
 # Application definition
 
@@ -71,6 +75,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+database_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(database_url)
+# "postgres://famaz_project_user:yiLdJhspLe3CDSnF4WOTssoHRGOhsgyZ@dpg-cp6bvhu3e1ms73a8ds90-a.oregon-postgres.render.com/famaz_project"
+
 
 
 # Password validation
