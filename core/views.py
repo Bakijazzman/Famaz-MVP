@@ -1,11 +1,51 @@
 from django.shortcuts import render, redirect
-from .models import Product, Category
+from .models import Product, Category, Profile
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import SignUpForm, UpdateUserForm
+from .forms import SignUpForm, UpdateUserForm, UpdatePasswordForm, UserInfoForm
+import json
+from cart.cart import Cart
 
 
+def update_profile(request):
+    if request.user.is_authenticated:
+        current_user = Profile.objects.get(user__id=request.user.id)
+        form = UserInfoForm(request.POST or None, instance=current_user)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, ("Profile has been Updated"))
+            return redirect("index")
+        else:
+            for err in list(form.errors.values()):
+                messages.error(request, err)
+            return render(request, 'update_profile.html', {"form":form})
+    else:
+        messages.success(request, ("You have to login first"))
+        return redirect("login")
+
+
+def update_password(request):
+    if request.user.is_authenticated:
+        current_user = request.user
+        if request.method == "POST":
+            form = UpdatePasswordForm(current_user, request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, ("Password Successfully changed, please log in again"))
+                return redirect("login")
+            else:
+                for err in list(form.errors.values()):
+                    messages.error(request, err)
+                return redirect("password")     
+        else:
+            form = UpdatePasswordForm(current_user)
+            return render(request, "update_password.html", {"form":form})
+    else:
+        messages.success(request, ("You have to login first"))
+        return redirect("login")
+    
 def index(request):
     products = Product.objects.all()
     return render(request, "index.html", {'products':products})
@@ -33,6 +73,19 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            
+            current_user = Profile.objects.get(user__id=request.user.id)
+            # load saved cart
+            saved = current_user.old_cart
+            # covert json
+            if saved:
+                converted = json.loads(saved)
+                cart = Cart(request)
+                # add items from database
+                for k,v in converted.items():
+                    cart.db_add(product=k, quantity=v)
+                
+            
             messages.success(request,("You have been logged in "))
             return redirect('index')
         else:
@@ -56,7 +109,7 @@ def update_user(request):
             form.save()
             login(request, current_user)
             messages.success(request, ("User has been Updated"))
-            return redirect("index")
+            return redirect("update_profile")
         return render(request, 'update_user.html', {"form":form})
     else:
         messages.success(request, ("You have to login first"))
@@ -77,10 +130,11 @@ def register_user(request):
             # login user
             user = authenticate(username=username, password=password)
             login(request, user)
-            messages.success(request, ("You have registered successfully, welcome !!! "))
-            return redirect('index')
+            messages.success(request, ("Username created, Please fll out your User information"))
+            return redirect('update_profile')
         else:
-            messages.success(request, ("oops tthere was a problem registering you "))
+            for err in list(form.errors.values()):
+                messages.error(request, err)
             return redirect('register')
     else:
         return render(request, 'register.html', {'form':form})
