@@ -35,6 +35,8 @@ Navigate to the project directory: On bash;
 
 cd Famaz-MVP
 
+create a virtual env by running "python -m venv env"
+
 Install the required dependencies: On bash;
 
 pip install -r requirements.txt
